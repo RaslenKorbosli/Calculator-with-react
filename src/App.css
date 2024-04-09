@@ -7,16 +7,23 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: linear-gradient(to right, #00aaff, #00ff6c);
+  background: linear-gradient(to right, #3cc4fecd, #af62d2d8);
+  height: 100vh;
   display: flex;
-  align-content: center;
   justify-content: center;
+  align-items: center;
 }
 .calculator-grid {
   display: grid;
-  grid-template-columns: repeat(4, 12rem);
-  grid-template-rows: minmax(14rem, auto) repeat(5, 12rem);
-  margin-top: 5rem;
+  grid-template-columns: repeat(4, minmax(8rem, 12rem));
+  grid-template-rows: minmax(14rem, auto) repeat(5, minmax(8rem, 12rem));
+}
+@media (max-width: 470px) {
+  .calculator-grid {
+    height: 100vh;
+
+    grid-template-rows: minmax(14rem, auto) repeat(5, minmax(8rem, 14rem));
+  }
 }
 .span-two {
   grid-column: span 2;

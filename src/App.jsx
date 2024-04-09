@@ -82,7 +82,7 @@ function reducer(state, action) {
         };
       return {
         ...state,
-        currentOperand: state.currentOperand + action.payload, // convert to Number to remove all zeros on left
+        currentOperand: state.currentOperand + action.payload,
       };
     case 'addOperation':
       if (
@@ -105,7 +105,6 @@ function reducer(state, action) {
           )
         ),
       };
-
     case 'delNumber':
       return {
         ...state,
@@ -123,7 +122,6 @@ function App() {
     reducer,
     initialState
   );
-
   return (
     <div className="calculator-grid">
       <div className="output">
