@@ -68,11 +68,14 @@ function reducer(state, action) {
         operationDone: true,
       };
     case 'addNumber':
+      if (state.currentOperand.length > 15) {
+        return state;
+      }
       if (action.payload === '.' && state.currentOperand.includes('.'))
         return state;
       if (state.currentOperand === '0' && action.payload === '0') return state;
       if (action.payload === '.' && state.currentOperand === '0') {
-        return { ...state, currentOperand: '0' + action.payload };
+        return { ...state, currentOperand: '0.', operationDone: false };
       }
       if (state.operationDone)
         return {
