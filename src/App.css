@@ -8,9 +8,10 @@ html {
 }
 body {
   background: linear-gradient(to right, #3cc4fecd, #af62d2d8);
+  height: 100vh;
   display: flex;
   justify-content: center;
-  margin-top: 10rem;
+  align-items: center;
 }
 .calculator-grid {
   display: grid;
@@ -18,9 +19,11 @@ body {
   grid-template-rows: minmax(14rem, auto) repeat(5, minmax(8rem, 12rem));
 }
 @media (max-width: 470px) {
+  body {
+    height: auto;
+  }
   .calculator-grid {
     height: 100vh;
-
     grid-template-rows: minmax(14rem, auto) repeat(5, minmax(8rem, 14rem));
   }
 }

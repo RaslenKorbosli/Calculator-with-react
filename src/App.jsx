@@ -108,6 +108,7 @@ function reducer(state, action) {
     case 'delNumber':
       return {
         ...state,
+        operationDone: true,
         currentOperand:
           state.currentOperand.length == 1
             ? '0'
