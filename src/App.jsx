@@ -31,6 +31,29 @@ function reducer(state, action) {
     case 'clearAction':
       return initialState;
     case 'doOperation':
+      if (
+        state.currentOperand === '0' ||
+        (state.currentOperand === '0.' &&
+          state.operation === '/' &&
+          state.prvOperand === '0')
+      ) {
+        return {
+          ...state,
+          currentOperand: 'Result is undefined',
+          operationDone: true,
+        };
+      }
+      if (
+        state.currentOperand === '0' &&
+        state.operation === '/' &&
+        state.prvOperand !== '0'
+      ) {
+        return {
+          ...state,
+          currentOperand: 'Cannot divide by zero',
+          operationDone: true,
+        };
+      }
       return {
         prvOperand: '',
         operation: '',
@@ -45,31 +68,45 @@ function reducer(state, action) {
         operationDone: true,
       };
     case 'addNumber':
+      if (action.payload === '.' && state.currentOperand.includes('.'))
+        return state;
+      if (state.currentOperand === '0' && action.payload === '0') return state;
+      if (action.payload === '.' && state.currentOperand === '0') {
+        return { ...state, currentOperand: '0' + action.payload };
+      }
+      if (state.operationDone)
+        return {
+          ...state,
+          currentOperand: action.payload,
+          operationDone: state.operationDone && false,
+        };
       return {
         ...state,
-        operationDone: state.operationDone && false,
-        currentOperand: state.operationDone
-          ? action.payload
-          : String(Number(state.currentOperand + action.payload)), // convert to Number to remove all zeros on left
+        currentOperand: state.currentOperand + action.payload, // convert to Number to remove all zeros on left
       };
     case 'addOperation':
+      if (
+        state.operation !== '' &&
+        state.operation !== action.payload &&
+        state.operationDone === true
+      ) {
+        return {
+          ...state,
+          operation: action.payload,
+        };
+      }
       return {
         ...state,
-        prvOperand:
-          state.currentOperand != ''
-            ? String(
-                eval(
-                  `${state.prvOperand} ${state.operation} ${state.currentOperand} `
-                )
-              )
-            : state.prvOperand != ''
-            ? state.prvOperand
-            : '0',
         operation: action.payload,
         operationDone: true,
+        prvOperand: String(
+          eval(
+            `${state.prvOperand} ${state.operation} ${state.currentOperand} `
+          )
+        ),
       };
+
     case 'delNumber':
-      console.log(state, typeof state.currentOperand);
       return {
         ...state,
         currentOperand:
