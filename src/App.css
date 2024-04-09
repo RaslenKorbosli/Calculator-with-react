@@ -8,10 +8,9 @@ html {
 }
 body {
   background: linear-gradient(to right, #3cc4fecd, #af62d2d8);
-  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 10rem;
 }
 .calculator-grid {
   display: grid;
